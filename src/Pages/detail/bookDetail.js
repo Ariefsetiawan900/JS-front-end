@@ -37,13 +37,13 @@ class BookDetails extends React.Component {
         const { book } = this.state;
         console.log(book);
         return (
-            <div className="grid-container">
+            <div className="grid-container" >
                 {book &&
                     book.map((item, index) => (
                         <div key={index}>
                             <BookDetailNavbar data={item} />
                             <div className="grid-templates-content">
-                                <BookContent data={item} />
+                                <BookContent data={item} /> 
                                 <BorrowButton data={item} />
                             </div>
                             <Edit data={item} />
