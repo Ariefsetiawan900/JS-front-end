@@ -1,39 +1,43 @@
-import React, { Component } from "react";
-import Axios from "axios";
-import "../../Component/modal/style/Addmodal.css"
+import React from "react";
+import axios from "axios";
+import "../modal/style/Edit.css";
 
-const HOST = "/api/v1/";
-class AddModal extends Component {
-    state = {
-        title: "",
-        description: "",
-        released_date: "",
-        imageURL: "",
-        genre: "",
-        available: "true",
-        genreData: []
-    };
+class editModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: props.data.id,
+            title: props.data.title,
+            image: props.data.image,
+            description: props.data.description,
+            image: props.data.image,
+            genre: props.data.genre,
+            available: props.data.available,
+            genreData: []
+        };
+    }
 
-    postBookData = () => {
+    updateBookData = () => {
         const {
             title,
+            image,
             description,
-            imageURL,
-            released_date,
+            datereleased,
             genre,
             available
         } = this.state;
 
-        const book = {
+        const updatedBook = {
             title,
-            released_date,
-            imageURL,
+            image,
             description,
+            datereleased,
+            genre,
             available,
-            genre
         };
-        console.log(book);
-        Axios.post(HOST + "addbook", book)
+        console.log(updatedBook);
+
+        axios.patch(`/api/v1/${this.state.id}`, updatedBook)
             .then(result => {
                 console.log(result);
             })
@@ -43,9 +47,9 @@ class AddModal extends Component {
     };
 
     renderGenreData = () => {
-        Axios.get(HOST + "genre/addgenre")
+        axios.get("/api/v1/genre/")
             .then(({ data }) => {
-                // console.log(data);
+                console.log(data.result);
                 this.setState({
                     genreData: data.result
                 });
@@ -63,29 +67,30 @@ class AddModal extends Component {
         const { genreData } = this.state;
         console.log(genreData);
         return (
-            <div id="addModal" className="add-modal">
-                <div className="add-modal-content">
-                    <div className="add-modal-header">
-                        <span className="add-close">&times;</span>
-                        <p>Add Data</p>
+            <div id="editModal" className="edit-modal">
+                <div className="edit-modal-content">
+                    <div className="edit-modal-header">
+                        <span className="close">&times;</span>
+                        <p>Edit Data</p>
                     </div>
-                    <div className="add-modal-body">
+                    <div className="edit-modal-body">
                         <div className="form-wrapper">
-                            <form>
+                            <form action="">
                                 <div className="row">
                                     <div className="col-20">
                                         <label htmlFor="image-url">URL Image</label>
                                     </div>
                                     <div className="col-80">
                                         <input
-                                            required
+                                            value={this.state.img}
                                             type="text"
-                                            id="imageURL"
+                                            id="image"
                                             name="imageURL"
                                             placeholder="Book's URL Image Cover"
                                             onChange={e => {
-                                                this.setState({ imageURL: e.target.value });
+                                                this.setState({ img: e.target.value });
                                             }}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -97,9 +102,10 @@ class AddModal extends Component {
                                         <input
                                             required
                                             type="date"
-                                            id="releasedDate"
+                                            id="datereleased"
                                             name="released_date"
                                             placeholder="Book's Released Date"
+                                            value={this.state.released_date}
                                             onChange={e => {
                                                 this.setState({ released_date: e.target.value });
                                             }}
@@ -112,11 +118,12 @@ class AddModal extends Component {
                                     </div>
                                     <div className="col-80">
                                         <input
-                                            required
                                             type="text"
                                             id="bookTitle"
-                                            name="title"
+                                            name="bookTitle"
                                             placeholder="Book's Title"
+                                            required
+                                            value={this.state.title}
                                             onChange={e => {
                                                 this.setState({ title: e.target.value });
                                             }}
@@ -130,7 +137,7 @@ class AddModal extends Component {
                                     <div className="col-80">
                                         <select
                                             onChange={e => {
-                                                this.setState({ genre: e.target.value });
+                                                this.setState({ id_genre: e.target.value });
                                                 // console.log(item.name);
                                             }}
                                             id="genre"
@@ -149,15 +156,6 @@ class AddModal extends Component {
                                                     ))
                                                 )}
                                         </select>
-                                        {/* <input
-                      type="text"
-                      id="genre"
-                      name="genre"
-                      placeholder="Book's Genre"
-                      onChange={e => {
-                        this.setState({ genre: e.target.value });
-                      }}
-                    /> */}
                                     </div>
                                 </div>
                                 <div className="row">
@@ -171,19 +169,17 @@ class AddModal extends Component {
                                             name="description"
                                             placeholder="Book's Description"
                                             style={{ height: "200px" }}
+                                            value={this.state.description}
                                             onChange={e => {
-                                                this.setState({ desc: e.target.value });
+                                                this.setState({ description: e.target.value });
                                             }}
                                         ></textarea>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <button
-                                        type="submit"
-                                        onClick={e => this.postBookData(e.preventDefault)}
-                                    >
+                                    <button onClick={this.updateBookData} type="submit">
                                         Save
-                  </button>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -194,4 +190,4 @@ class AddModal extends Component {
     }
 }
 
-export default AddModal;
+export default editModal;

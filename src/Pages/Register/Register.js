@@ -4,7 +4,7 @@ import qs from 'qs';
 import "./Register.css";
 // import { render } from "@testing-library/react";
 
-const HOST = "localhost:3009/api/v1/user/register"
+const HOST = "/api/v1/user/register"
 class Register extends Component {
     state = {
         email: "",
@@ -27,7 +27,7 @@ class Register extends Component {
             username,
             password,
         }
-        axios.post("http://localhost:3009/api/v1/user/register", qs.stringify(data))
+        axios.post(HOST, qs.stringify(data))
             .then(result => {
                 if (result.status === 200) {
                     alert("Register Success")

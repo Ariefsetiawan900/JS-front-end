@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-           {/* <Route path="/" exact render={(props) => (<Main {...props} />)} />  */}
+           <Route path="/" exact render={(props) => (<Main {...props} />)} /> 
           <Route path="/login" exact render={(props) => (<Login {...props} />)} />
           <Route path="/home"  render={(props) => (<Home {...props} />)} /> 
           <Route path="/register"  render={(props) => (<Register {...props} />)} /> 

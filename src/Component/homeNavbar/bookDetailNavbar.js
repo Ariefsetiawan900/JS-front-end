@@ -73,7 +73,7 @@ const BookNavbar = props => {
         </Helmet>
       </div>
       <section className="cover-image-container">
-        <img src={props.imageURL} alt="book-cover" />
+        <img src={props.image} alt="book-cover" />
         <nav className="top-navbar">
           <div className="back-button">
             <button onClick={handleClick}>
