@@ -3,7 +3,8 @@ import axios from "axios";
 import qs from 'qs';
 import "./Login.css";
 
-const HOST = "http://localhost:3009/api/v1/user/login"
+
+const HOST = "http://localhost:3001/api/v1/user/login"
 class Login extends Component {
     state = {
         email: "",
@@ -21,7 +22,7 @@ class Login extends Component {
             password,
         }
         console.log('ok')
-        axios.post("http://localhost:3009/api/v1/user/login", qs.stringify(data))
+        axios.post("http://localhost:3001/api/v1/user/login", qs.stringify(data))
             .then(result => {
                 if (result.status === 200) {
                     alert("Sukses login")
@@ -33,15 +34,15 @@ class Login extends Component {
                     }
                 }
             }).catch(error => {
-                alert("E / P sandi salah")
+                alert("Email atau Password salah")
             })
     }
     render() {
         return (
-            <div className="grid-container">
+            <div className="grid-container-index">
                 {/* <!-- left-section --> */}
                 <section className="left-section">
-                    <img src={require("../../asset/img/index-cover.png")} alt="" />
+                    <img src={require("../../Images/cover.png")} alt="" />
                     <div className="header-cover">
                         <p>Book is a window to the world</p>
                     </div>
@@ -51,11 +52,10 @@ class Login extends Component {
                     <div className="overlay-bg"></div>
                 </section>
                 {/* <!-- end of left-section -->
-
         <!-- right-section --> */}
                 <section className="right-section">
                     <div className="top-logo">
-                        <img src={require("../../asset/img/bookshelf-logo.png")} alt="logo-cover" srcset="" />
+                        <img src={require("../../Images/bookshelf.png")} alt="logo-cover" srcset="" />
                     </div>
                     <div className="form-header">
                         <header>Login</header>
@@ -102,7 +102,7 @@ class Login extends Component {
                                             Login
                                             </button>
                                         </li>
-                                        <li><a href="register.html"><button type="button">Sign Up</button></a></li>
+                                        <li><a href="/register"><button type="button">Sign Up</button></a></li>
                                         {/* <!-- <li><a href="http://">Sign Up</a></li> --> */}
                                     </ul>
                                 </div>

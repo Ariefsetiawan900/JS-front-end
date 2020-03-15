@@ -6,10 +6,7 @@ import Cardlist from "../../Component/Card/Cardlist"
 import Sidebar from "../../Component/Sidebar/Sidebar";
 import AddModal from "../../Component/modal/AddModal"
 
-
 import '../Home/Home.css';
-
-
 
 const Home = (props) => {
     return(
