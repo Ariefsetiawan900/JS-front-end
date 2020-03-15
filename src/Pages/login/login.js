@@ -4,7 +4,7 @@ import qs from 'qs';
 import "./Login.css";
 
 
-const HOST = "http://localhost:3001/api/v1/user/login"
+const HOST = "http://localhost:3009/api/v1/user/login"
 class Login extends Component {
     state = {
         email: "",
@@ -22,7 +22,7 @@ class Login extends Component {
             password,
         }
         console.log('ok')
-        axios.post("http://localhost:3001/api/v1/user/login", qs.stringify(data))
+        axios.post("http://localhost:3009/api/v1/user/login", qs.stringify(data))
             .then(result => {
                 if (result.status === 200) {
                     alert("Sukses login")

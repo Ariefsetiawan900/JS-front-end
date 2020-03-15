@@ -27,9 +27,9 @@ class Register extends Component {
             username,
             password,
         }
-        axios.post("/api/v1/user/register", qs.stringify(data))
+        axios.post("http://localhost:3009/api/v1/user/register", qs.stringify(data))
             .then(result => {
-                if (result.statu === 200) {
+                if (result.status === 200) {
                     alert("Register Success")
                     try {
                         this.props.history.push('/login')
@@ -43,7 +43,7 @@ class Register extends Component {
     }
     render() {
         return (
-            <div className="grid-container">
+            <div className="grid-container-index">
                 <section className="left-section">
                     <img src={require("../../Images/cover.png")} alt="" />
                     <div className="header-cover">
@@ -56,7 +56,7 @@ class Register extends Component {
                 </section>
                 <section className="right-section">
                     <div className="top-logo">
-                        <img src={require("../../Images/cover.png")} alt="logo-cover" srcset="" />
+                        <img src={require("../../Images/bookshelf.png")} alt="logo-cover" srcset="" />
                     </div>
                     <div className="form-header header-register">
                         <header>Register</header>
@@ -104,7 +104,7 @@ class Register extends Component {
                                             </button>
                                         </li>
                                         <li>
-                                            <a href="index.html"><button type="button">Sign In</button></a>
+                                            <a href="/"><button type="button">Sign In</button></a>
                                         </li>
                                     </ul>
                                 </div>
