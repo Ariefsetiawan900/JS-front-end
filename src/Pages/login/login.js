@@ -2,6 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 import qs from 'qs';
 import "./Login.css";
+import { login } from '../../redux/action/users'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (user) => {
+    return {
+        user
+    }
+}
+
 
 
 const HOST = "/api/v1/user/login"
@@ -22,20 +31,8 @@ class Login extends Component {
             password,
         }
         console.log('ok')
-        axios.post(HOST, qs.stringify(data))
-            .then(result => {
-                if (result.status === 200) {
-                    alert("Sukses login")
-                    try {
-                        localStorage.setItem("KEY_TOKEN", result.data.result.token)
-                        this.props.history.push('/home')
-                    } catch (error) {
-                        console.log('a shit just happened')
-                    }
-                }
-            }).catch(error => {
-                alert("Email atau Password salah")
-            })
+       this.props.dispatch(login(data, this.props))
+       
     }
     render() {
         return (
@@ -124,4 +121,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);

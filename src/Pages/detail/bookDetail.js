@@ -5,7 +5,15 @@ import BookContent from "../../Component/book/BookContent";
 import BorrowButton from "../../Component/book/BorrowButton";
 import Edit from "../../Component/modal/Edit";
 import Delete from "../../Component/modal/Delete";
+import { getBookById } from '../../redux/action/detail'
+import { connect } from 'react-redux'
 import Axios from "axios";
+
+const mapStateToProps = (detail) => {
+    return {
+        detail
+    }
+}
 
 const HOST = "/api/v1/";
 class BookDetails extends React.Component {
@@ -17,17 +25,13 @@ class BookDetails extends React.Component {
         };
     }
 
-    getBookById = () => {
-        Axios.get(`HOST${this.state.id}`)
-            .then(({ data }) => {
-                this.setState({
-                    book: data.result
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
+    getBookById = async () => {
+        await this.props.dispatch(getBookById(this.state.id))
+        console.log(this.props.data)
+        this.setState({
+          book: this.props.detail.detail.detailData
+        })
+      };
 
     componentDidMount = () => {
         this.getBookById();
@@ -56,4 +60,4 @@ class BookDetails extends React.Component {
     }
 }
 
-export default BookDetails;
+export default connect(mapStateToProps)(BookDetails);

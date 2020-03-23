@@ -1,5 +1,6 @@
 import React from "react";
 import Profile from "../../Images/profile.png"
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
   const closeNav = () => {
@@ -38,6 +39,24 @@ const Sidebar = () => {
     };
     return false;
   };
+
+  const handleLogout = () => {
+
+    try {
+        const token = localStorage.getItem('token');
+        if (token) {
+            localStorage.removeItem('token');
+            this.props.history.push('/login')
+        } else {
+
+        }
+    } catch  {
+        console.log("Something's wrong")
+    }
+}
+
+
+
   return (
     <div>
       <aside id="mySidebar" className="aside-nav-container">
@@ -61,9 +80,11 @@ const Sidebar = () => {
                 Add Book
               </a>
             </li>
-            <li>
-              <a href="#">Logout</a>
-            </li>
+            <form>
+               <Link to='/login'>
+                   <li><a onClick={(e) => { handleLogout(e) }}>Logout</a></li>
+                </Link>
+             </form>
           </ul>
         </nav>
       </aside>

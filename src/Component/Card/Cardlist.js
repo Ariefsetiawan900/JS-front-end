@@ -1,28 +1,38 @@
 import React, { Component } from "react"
 import Axios from "axios";
 import Truncate from "react-truncate"
+import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getAllBook } from "../../redux/action/book";
 
-const URL_STRING = "/api/v1/";
+
+const mapStateToProps = (book) => {
+  return {
+    book
+  }
+}
+
 class Cardlist extends Component {
   state = {
     library: []
   }
 
-  getBookData = () => {
-    Axios.get("/api/v1/")
-      .then(({ data }) => {
-        // console.log(data);
-        this.setState({
-          library: data.result
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  getBookData = async() => {
+    await this.props.dispatch(getAllBook())
+    console.log('book',this.props.book.book.bookData.result)
+   this.setState({
+     library: this.props.book.book.bookData.result
+   })
   }
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.getBookData()
   }
+
+  // componentDidUpdate = () => {
+    // console.log('update',this.props.book.book.bookData.data)
+    // this.state.library = this.props.book.book.bookData.
+  // }
+
   render() {
     const { library } = this.state
     console.log(library)
@@ -34,10 +44,11 @@ class Cardlist extends Component {
               <h1>Data is empty</h1>
             </div>
           ) : (
-            library &&
-            library.map(item => (
+            this.props.book.book.bookData.result &&
+            this.props.book.book.bookData.result.map(item => (
+              <Link to={{ pathname: `/book/${item.id}`, book:item}}>
               <div key={item.id} className="card-container">
-                <a href="#">
+                
                   <img src={item.image} alt="book-cover" />
                   <div className="card-text-container">
                     <h3>{item.title}</h3>
@@ -46,7 +57,7 @@ class Cardlist extends Component {
                         lines={2}
                         ellipsis={
                           <span>
-                            ... <a href="/link/to/article">Read more</a>
+                            ... 
                           </span>
                         }
                       >
@@ -55,8 +66,8 @@ class Cardlist extends Component {
                     </p>
                     {/* <p>{}</p> */}
                   </div>
-                </a>
               </div>
+              </Link>
             ))
           )}
         </section>
@@ -65,4 +76,4 @@ class Cardlist extends Component {
   }
 }
 
-export default Cardlist
+export default connect(mapStateToProps)(Cardlist);

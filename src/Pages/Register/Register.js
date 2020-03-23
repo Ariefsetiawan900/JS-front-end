@@ -2,8 +2,17 @@ import React, { Component } from "react";
 import axios from "axios";
 import qs from 'qs';
 import "./Register.css";
+import { register } from '../../redux/action/users'
+import { connect } from 'react-redux'
+
 // import { render } from "@testing-library/react";
 
+const mapStateToProps = (user) =>{
+    return {
+        user
+    }
+    
+}
 const HOST = "/api/v1/user/register"
 class Register extends Component {
     state = {
@@ -27,19 +36,7 @@ class Register extends Component {
             username,
             password,
         }
-        axios.post(HOST, qs.stringify(data))
-            .then(result => {
-                if (result.status === 200) {
-                    alert("Register Success")
-                    try {
-                        this.props.history.push('/login')
-                    } catch (error) {
-                        console.log('a shit just happened')
-                    }
-                }
-            }).catch(error => {
-                console.log(error)
-            })
+        this.props.dispatch(register(data, this.props))
     }
     render() {
         return (
@@ -126,4 +123,4 @@ class Register extends Component {
     }
 }
 
-export default Register
+export default connect(mapStateToProps) (Register)

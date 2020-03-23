@@ -14,7 +14,7 @@ const BookContent = props => {
                 <div className="header-wrapper">
                     <div className="genre-label">
                         <div className="label-text">
-                            <p>{props.data.id_genre}</p>
+                            <p>{props.data.genre}</p>
                         </div>
                     </div>
                     <div className="main-header">
@@ -26,7 +26,7 @@ const BookContent = props => {
                         </ul>
                     </div>
                     <div className="date-header">
-                        <p>{props.data.released_date}</p>
+                        <p>{props.data.datereleased}</p>
                     </div>
                 </div>
                 <div className="content-wrapper">

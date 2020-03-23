@@ -48,8 +48,10 @@ const BookNavbar = props => {
 
         // When the user clicks the button, open the modal
         deleteBtn.onclick = function () {
+            console.log('aaaaaahsanb')
             deleteModal.style.display = "block";
         };
+
 
         // When the user clicks on <span> (x), close the modal
         deleteSpan.onclick = function () {
@@ -73,7 +75,7 @@ const BookNavbar = props => {
                 </Helmet>
             </div>
             <section className="cover-image-container">
-                <img src={props.data.img} />
+                <img src={props.data.image} />
                 <nav className="top-navbar" >
                     <div className="back-button">
                         <button onClick={handleClick}>
@@ -86,7 +88,7 @@ const BookNavbar = props => {
                                 <button onClick={editModal} id="edit" data-toggle="modal" data-target="#exampleModalCenter" src="#">Edit</button>
                             </li>
                             <li>
-                                <button onClick={deleteModal} id="edit" data-toggle="modal" data-target="#exampleModalCenter" src="#">Delete</button>
+                                <button onClick={deleteModal} id="delete" data-toggle="modal" data-target="#exampleModalCenter" src="#">Delete</button>
                             </li>
                         </ul>
                     </div>

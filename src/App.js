@@ -11,6 +11,7 @@ import Register from "./Pages/Register/Register"
 import Main from "./Pages/Main/index"
 // import { Register } from "./serviceWorker";
 import { Router } from "react-router-dom";
+import BookDetails from "./Pages/detail/bookDetail";
 
 class App extends React.Component {
   render() {
@@ -20,7 +21,8 @@ class App extends React.Component {
            <Route path="/" exact render={(props) => (<Main {...props} />)} /> 
           <Route path="/login" exact render={(props) => (<Login {...props} />)} />
           <Route path="/home"  render={(props) => (<Home {...props} />)} /> 
-          <Route path="/register"  render={(props) => (<Register {...props} />)} /> 
+          <Route path="/register"  render={(props) => (<Register {...props} />)} />
+          <Route path={"/book/:id" } component={BookDetails} />
         </Switch>
       </BrowserRouter>
     )

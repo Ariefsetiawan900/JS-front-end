@@ -47,7 +47,7 @@ const BookNavbar = props => {
     let deleteSpan = document.getElementsByClassName("close")[1];
 
     // When the user clicks the button, open the modal
-    deleteBtn.onclick = function() {
+    deleteBtn.onlick = function() {
       deleteModal.style.display = "block";
     };
 

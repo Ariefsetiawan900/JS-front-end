@@ -1,12 +1,22 @@
 import React from "react";
-import Axios from "axios";
+import Axios from "axios"
+import { connect } from 'react-redux'
+import { rentBookRedux, returnBook } from '../../redux/action/detail'
+
+const mapStateToProps = (detail) => {
+  return {
+    detail
+  }
+}
+
+
 class BorrowButton extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            id_book: props.data.id_book,
-            img: props.data.img,
+            id: props.data.id,
+            image: props.data.image,
             available: props.data.available,
             loading: false
         };
@@ -16,30 +26,18 @@ class BorrowButton extends React.Component {
         // const { available } = this.state;
         const rentBook = {
             available: "false"
-        };
-
-        Axios.patch(`http://localhost:3001/api/v1/rentbook/${this.state.id_book}`, rentBook)
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+          };
+      
+          this.props.dispatch(rentBookRedux(this.state.id, rentBook))
     };
 
     returnBookData = () => {
         // const { available } = this.state;
         const rentBook = {
             available: "true"
-        };
-
-        Axios.patch(`http://localhost:3001/api/v1/returnbook/${this.state.id_book}`, rentBook)
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+          };
+      
+          this.props.dispatch(returnBook(this.state.id, rentBook))
     };
 
     render() {
@@ -62,7 +60,7 @@ class BorrowButton extends React.Component {
                 <section className="borrow-button-container">
                     <aside className="aside-items">
                         <div className="book-cover-img">
-                            <img src={this.state.img} alt="book-cover.img" />
+                            <img src={this.state.image} alt="book-cover.img" />
                         </div>
                         {/* <form> */}
                         <div className="borrow-btn">{buttonStatus}</div>
@@ -74,4 +72,4 @@ class BorrowButton extends React.Component {
     }
 }
 
-export default BorrowButton;
+export default connect(mapStateToProps)(BorrowButton);

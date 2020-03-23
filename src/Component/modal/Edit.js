@@ -1,6 +1,14 @@
 import React from "react";
 import axios from "axios";
 import "../modal/style/Edit.css";
+import { connect } from 'react-redux'
+import { updateBook } from '../../redux/action/detail'
+
+const mapStateToProps = (detail) => {
+  return {
+    detail
+  }
+}
 
 class editModal extends React.Component {
     constructor(props) {
@@ -37,13 +45,9 @@ class editModal extends React.Component {
         };
         console.log(updatedBook);
 
-        axios.patch(`/api/v1/${this.state.id}`, updatedBook)
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        this.props.dispatch(updateBook(this.state.id, updatedBook))
+
+        
     };
 
     renderGenreData = () => {
@@ -82,13 +86,13 @@ class editModal extends React.Component {
                                     </div>
                                     <div className="col-80">
                                         <input
-                                            value={this.state.img}
+                                            value={this.state.image}
                                             type="text"
                                             id="image"
                                             name="imageURL"
                                             placeholder="Book's URL Image Cover"
                                             onChange={e => {
-                                                this.setState({ img: e.target.value });
+                                                this.setState({ image: e.target.value });
                                             }}
                                             required
                                         />
@@ -105,9 +109,9 @@ class editModal extends React.Component {
                                             id="datereleased"
                                             name="released_date"
                                             placeholder="Book's Released Date"
-                                            value={this.state.released_date}
+                                            value={this.state.datereleased}
                                             onChange={e => {
-                                                this.setState({ released_date: e.target.value });
+                                                this.setState({ datereleased: e.target.value });
                                             }}
                                         />
                                     </div>
@@ -151,7 +155,7 @@ class editModal extends React.Component {
                                                     genreData &&
                                                     genreData.map(item => (
                                                         <option key={item.id_genre} value={item.id_genre}>
-                                                            {item.name_genre}
+                                                            {item.genre_name}
                                                         </option>
                                                     ))
                                                 )}
@@ -190,4 +194,4 @@ class editModal extends React.Component {
     }
 }
 
-export default editModal;
+export default connect(mapStateToProps) (editModal);

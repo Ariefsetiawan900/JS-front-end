@@ -6,9 +6,9 @@ const HOST = "/api/v1/";
 class AddModal extends Component {
     state = {
         title: "",
+        image: "",
         description: "",
-        released_date: "",
-        imageURL: "",
+        datereleased: "",
         genre: "",
         available: "true",
         genreData: []
@@ -17,20 +17,20 @@ class AddModal extends Component {
     postBookData = () => {
         const {
             title,
+            image,
             description,
-            imageURL,
-            released_date,
+            datereleased,
             genre,
             available
         } = this.state;
 
         const book = {
             title,
-            released_date,
-            imageURL,
+            image,
             description,
-            available,
-            genre
+            datereleased,
+            genre,
+            available
         };
         console.log(book);
         Axios.post(HOST + "addbook", book)
@@ -43,7 +43,7 @@ class AddModal extends Component {
     };
 
     renderGenreData = () => {
-        Axios.get(HOST + "genre/addgenre")
+        Axios.get(HOST + "genre")
             .then(({ data }) => {
                 // console.log(data);
                 this.setState({
@@ -80,11 +80,11 @@ class AddModal extends Component {
                                         <input
                                             required
                                             type="text"
-                                            id="imageURL"
-                                            name="imageURL"
+                                            id="image"
+                                            name="image"
                                             placeholder="Book's URL Image Cover"
                                             onChange={e => {
-                                                this.setState({ imageURL: e.target.value });
+                                                this.setState({ image: e.target.value });
                                             }}
                                         />
                                     </div>
@@ -97,11 +97,11 @@ class AddModal extends Component {
                                         <input
                                             required
                                             type="date"
-                                            id="releasedDate"
-                                            name="released_date"
+                                            id="datereleased"
+                                            name="datereleased"
                                             placeholder="Book's Released Date"
                                             onChange={e => {
-                                                this.setState({ released_date: e.target.value });
+                                                this.setState({ datereleased: e.target.value });
                                             }}
                                         />
                                     </div>
@@ -144,7 +144,7 @@ class AddModal extends Component {
                                                     genreData &&
                                                     genreData.map(item => (
                                                         <option key={item.id_genre} value={item.id_genre}>
-                                                            {item.name_genre}
+                                                            {item.genre_name}
                                                         </option>
                                                     ))
                                                 )}
@@ -172,7 +172,7 @@ class AddModal extends Component {
                                             placeholder="Book's Description"
                                             style={{ height: "200px" }}
                                             onChange={e => {
-                                                this.setState({ desc: e.target.value });
+                                                this.setState({ description: e.target.value });
                                             }}
                                         ></textarea>
                                     </div>
